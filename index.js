@@ -71,7 +71,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
         _id: foundUser.id,
         username: foundUser.username,
         description: exerciseSaved.description,
-        duration: exerciseSaved.duration,
+        duration: Number(exerciseSaved.duration),
         date: exerciseSaved.date.toDateString()
       });
     })
@@ -122,7 +122,7 @@ app.get('/api/users/:_id/logs', (req, res) => {
     .then((exercises) => {
       const logs = exercises.map(e => ({
         description: e.description,
-        duration: e.duration,
+        duration: Number(e.duration),
         date: e.date.toDateString()
       }));
 
