@@ -10,7 +10,7 @@ mongoose.connect('mongodb+srv://angeldvcraw:admin@cluster0.idxql2r.mongodb.net/d
 const schemaExercise = new mongoose.Schema({ 
   user_id: {type: String, required: true},
   description: { type: String, required: true },  
-  duration: { type: String, required: true },
+  duration: { type: Number, required: true },
   date: Date
 });
 
@@ -61,7 +61,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     const newExercise = new Exercise({
       user_id: idUser,
       description: newDescription,
-      duration: newDuration,
+      duration: Number(newDuration),
       date: newDate
     });
 
