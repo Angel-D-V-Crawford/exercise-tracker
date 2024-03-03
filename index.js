@@ -39,6 +39,7 @@ app.post('/api/users', (req, res) => {
     res.json({ username: result.username, _id: result.id });
   })
   .catch((err) => {
+    console.log(err);
     res.json({ error: err });
   });
 });
@@ -53,6 +54,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
   User.findById(idUser)
   .then((foundUser) => {
     if(!foundUser) {
+      console.log("User not found.");
       res.send("User not found.");
       return;
     }
@@ -75,10 +77,12 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       });
     })
     .catch((saveErr) => {
+      console.log(saveErr);
       res.json({ error: saveErr });
     });
   })
   .catch((err) => {
+    console.log(err);
     res.json({ error: err });
   });
 });
@@ -90,6 +94,7 @@ app.get('/api/users', (req, res) => {
     res.json(users);
   })
   .catch((err) => {
+    console.log(err);
     res.json({ error: err });
   });
 });
@@ -101,6 +106,7 @@ app.get('/api/users/:_id/logs', (req, res) => {
   User.findById(idUser)
   .then((foundUser) => {
     if(!foundUser) {
+      console.log("User not found.");
       res.json({ message: "User not found." });
       return;
     }
@@ -138,10 +144,12 @@ app.get('/api/users/:_id/logs', (req, res) => {
       });
     })
     .catch((error) => {
+      console.log(error);
       res.json({ error: error });
     });
   })
   .catch((err) => {
+    console.log(err);
     res.json({ error: err });
   });
 });
