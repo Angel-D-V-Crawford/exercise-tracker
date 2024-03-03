@@ -49,7 +49,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
   const newDescription = req.body.description;
   const newDuration = req.body.duration;
   //const newDate = req.body.date === '' ? new Date().toDateString() : new Date(req.body.date).toDateString();
-  const newDate = req.body.date === '' || req.body.date === 'undefined' ? new Date() : new Date(req.body.date);
+  const newDate = req.body.date === '' || req.body.date === undefined ? new Date() : new Date(req.body.date);
 
   if(newDate.toString() === 'Invalid Date') {
     console.log('Here is the invalid date!!!!');
