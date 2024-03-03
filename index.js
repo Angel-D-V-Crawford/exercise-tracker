@@ -15,8 +15,7 @@ const schemaExercise = new mongoose.Schema({
 });
 
 const schemaUser = new mongoose.Schema({
-  username: { type: String, required: true },
-  log: [schemaExercise]
+  username: { type: String, required: true }
 });
 
 const Exercise = mongoose.model('Exercise', schemaExercise);
@@ -96,8 +95,6 @@ app.get('/api/users', (req, res) => {
 });
 
 app.get('/api/users/:_id/logs', (req, res) => {
-  console.log(req.query);
-
   const { from, to, limit } = req.query;
   const idUser = req.params._id;
 
@@ -126,9 +123,16 @@ app.get('/api/users/:_id/logs', (req, res) => {
         date: e.date.toDateString()
       }));
 
+      console.log({
+        username: foundUser.username,
+        count: Number(exercises.length),
+        _id: foundUser.id,
+        log: logs
+      });
+
       res.json({
         username: foundUser.username,
-        count: exercises.length,
+        count: Number(exercises.length),
         _id: foundUser.id,
         log: logs
       });
