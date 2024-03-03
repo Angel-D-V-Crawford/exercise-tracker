@@ -49,7 +49,13 @@ app.post('/api/users/:_id/exercises', (req, res) => {
   const newDescription = req.body.description;
   const newDuration = req.body.duration;
   //const newDate = req.body.date === '' ? new Date().toDateString() : new Date(req.body.date).toDateString();
-  const newDate = req.body.date === '' ? new Date() : new Date(req.body.date);
+  const newDate = req.body.date === '' || req.body.date === 'undefined' ? new Date() : new Date(req.body.date);
+
+  if(newDate.toString() === 'Invalid Date') {
+    console.log('Here is the invalid date!!!!');
+    console.log('req.body.date: ' + req.body.date);
+    console.log('newDate: ' + newDate);
+  }
 
   User.findById(idUser)
   .then((foundUser) => {
@@ -129,19 +135,15 @@ app.get('/api/users/:_id/logs', (req, res) => {
         date: e.date.toDateString()
       }));
 
-      console.log({
+      const responseObject = {
         username: foundUser.username,
         count: Number(exercises.length),
         _id: foundUser.id,
         log: logs
-      });
+      };
 
-      res.json({
-        username: foundUser.username,
-        count: Number(exercises.length),
-        _id: foundUser.id,
-        log: logs
-      });
+      console.log(responseObject);
+      res.json(responseObject);
     })
     .catch((error) => {
       console.log(error);
